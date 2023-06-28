@@ -141,8 +141,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 指定静态文件的存放位置
 STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+# 指定静态文件收集目录
+STATIC_ROOT = (
     os.path.join(BASE_DIR, "collected_static"),
 )
+
 
 
 # 媒体文件地址
