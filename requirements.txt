@@ -1,0 +1,13 @@
+asgiref==3.7.2
+azure-cognitiveservices-speech==1.29.0
+Django==4.2.2
+django-ckeditor==6.6.1
+django-js-asset==2.0.0
+django-mptt==0.14.0
+django-taggit==4.0.0
+Markdown==3.4.3
+media==0.1.6
+mysqlclient==2.2.0
+sqlparse==0.4.4
+typing_extensions==4.6.3
+tzdata==2023.3

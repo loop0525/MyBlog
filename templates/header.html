@@ -1,0 +1,57 @@
+<!-- 定义导航栏 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <!-- 导航栏商标 -->
+    <a class="navbar-brand" href="#">我的博客</a>
+    <!-- 导航入口 -->
+    <div>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'article:article_list' %}">文章</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'article:article_create' %}">写文章</a>
+        </li>
+        <!-- is_authenticated是models.User类的属性，Django会自动将已登录User对象保存在session(添加到默认的模板上下文中)用于判断用户是否已通过身份验证。 -->
+        {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ user.username }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href='{% url "userprofile:edit" user.id %}'>个人信息</a>
+                    <a class="dropdown-item" href="#" onclick="user_delete()">注销用户</a>
+                    <a class="dropdown-item" href='{% url "userprofile:logout" %}'>退出登录</a>
+                </div>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'userprofile:login' %}">登录</a>
+            </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- 删除用户  if语句确保了只有在用户登录时解析user.id-->
+{% if user.is_authenticated %}
+<form style="display:none;" id="user_delete"
+    action="{% url 'userprofile:delete' user.id %}"
+    method="POST">
+    {% csrf_token %}
+    <button type="submit">发送</button>
+</form>
+    <script>
+        function user_delete() {
+            layer.open({
+                title: "确认删除",
+                content: "确认删除用户资料吗？",
+                yes: function(index, layero) {
+                    $('form#user_delete button').click();
+                    layer.close(index);
+                },
+            })
+        }
+    </script>
+{% endif %}

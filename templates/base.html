@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <!-- 引入monikai.css 代码高亮-->
+    <link rel="stylesheet" href="{% static 'md_css/monokai.css' %}">
+</head>
+<body>
+    {% include 'header.html' %}
+    <div id="wrapper">
+        {% block content %}{% endblock content %}
+        <div id="push"></div>
+    </div>
+    {% include 'footer.html' %}
+
+
+    <!-- bootstrap.js 依赖 jquery.js 和popper.js，因此在这里引入 -->
+    <script src="{% static 'jquery/jquery-3.7.0.min.js' %}"></script>
+    {#    富文本自适应#}
+    {% block script %}{% endblock script %}
+    {#    返回顶部#}
+    {% include 'back_to_top_func.html' %}
+    <!--popper.js 采用 cdn 远程引入，实际的开发中推荐静态文件尽量都使用 cdn 的形式。-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1-lts/dist/umd/popper.min.js"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <!-- 引入layer.js 处理弹窗-->
+    <script src="{% static 'layer/layer.js' %}"></script>
+</body>
+</html>
